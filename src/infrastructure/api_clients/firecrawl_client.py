@@ -8,7 +8,7 @@ Webページのスクレイピングとサイトマップ取得を担当。
 import logging
 from typing import Optional
 
-from firecrawl import FirecrawlApp
+from firecrawl import Firecrawl
 from ratelimit import limits, sleep_and_retry
 from tenacity import (
     retry,
@@ -42,7 +42,7 @@ class FirecrawlClient(WebScraperClient):
 
     def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key or settings.firecrawl_api_key
-        self.app = FirecrawlApp(api_key=self.api_key) if self.api_key else None
+        self.app = Firecrawl(api_key=self.api_key) if self.api_key else None
 
     @sleep_and_retry
     @limits(calls=5, period=60)  # 5回/分のレート制限
@@ -74,16 +74,13 @@ class FirecrawlClient(WebScraperClient):
         try:
             logger.info(f"スクレイピング開始: {url}")
 
-            result = self.app.scrape_url(
-                url,
-                params={
-                    "formats": ["markdown"],
-                    "onlyMainContent": True,  # メインコンテンツのみ
-                    "waitFor": 3000,  # 3秒待機（動的コンテンツ対応）
-                }
-            )
+            result = self.app.scrape(url, formats=["markdown"])
 
-            if result and "markdown" in result:
+            if result and hasattr(result, "markdown") and result.markdown:
+                content = result.markdown
+                logger.info(f"スクレイピング完了: {url} ({len(content)}文字)")
+                return content
+            elif result and isinstance(result, dict) and "markdown" in result:
                 content = result["markdown"]
                 logger.info(f"スクレイピング完了: {url} ({len(content)}文字)")
                 return content
