@@ -12,7 +12,7 @@ from typing import Optional
 
 from src.core.config import settings
 from src.domain.models import Product, DesireAnalysis
-from src.infrastructure.api_clients.openai_client import OpenAIClient
+from src.infrastructure.api_clients.gemini_client import GeminiClient
 from src.infrastructure.repositories.gsheets_repo import GSheetsProductRepository
 from src.agents.researcher import ResearcherAgent
 from src.agents.analyst import AnalystAgent
@@ -57,12 +57,12 @@ class DirectorAgent:
 
     def __init__(
         self,
-        llm_client: Optional[OpenAIClient] = None,
+        llm_client: Optional[GeminiClient] = None,
         researcher: Optional[ResearcherAgent] = None,
         analyst: Optional[AnalystAgent] = None,
         repository: Optional[GSheetsProductRepository] = None,
     ):
-        self.llm_client = llm_client or OpenAIClient()
+        self.llm_client = llm_client or GeminiClient()
         self.researcher = researcher or ResearcherAgent()
         self.analyst = analyst or AnalystAgent()
         self.repository = repository

@@ -2,7 +2,7 @@
 Analyst エージェント
 
 コンテンツ分析と製品情報抽出を担当するエージェント。
-OpenAI Structured Outputs を使用して型安全な抽出を実現。
+Gemini を使用して構造化抽出を実現。
 """
 
 import logging
@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from src.domain.models import Product
-from src.infrastructure.api_clients.openai_client import OpenAIClient
+from src.infrastructure.api_clients.gemini_client import GeminiClient
 from src.agents.researcher import ResearchResult
 
 logger = logging.getLogger(__name__)
@@ -36,8 +36,8 @@ class AnalystAgent:
     - 欲求との適合度評価
     """
 
-    def __init__(self, llm_client: Optional[OpenAIClient] = None):
-        self.llm_client = llm_client or OpenAIClient()
+    def __init__(self, llm_client: Optional[GeminiClient] = None):
+        self.llm_client = llm_client or GeminiClient()
         self.extraction_count = 0
         self.success_count = 0
 

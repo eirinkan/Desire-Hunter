@@ -9,21 +9,18 @@ dependencies = [
     "pydantic>=2.0",
     "pydantic-settings>=2.0.0",
     "python-dotenv>=1.0.0",
-
     # Brain - LLM
     "openai>=1.40.0",
-
     # Eyes & Hands - Web操作
     "firecrawl-py>=1.0.0",
     "requests>=2.31.0",
-
     # Resilience - エラー耐性
     "tenacity>=8.2.0",
     "ratelimit>=2.2.1",
-
     # Memory - データ永続化
     "gspread>=6.0.0",
     "oauth2client>=4.1.3",
+    "google-genai>=1.59.0",
 ]
 
 [dependency-groups]

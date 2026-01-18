@@ -12,9 +12,9 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     """アプリケーション設定"""
 
-    # OpenAI
-    openai_api_key: str = Field(default="", alias="OPENAI_API_KEY")
-    openai_model: str = Field(default="gpt-4o-2024-08-06", alias="OPENAI_MODEL")
+    # Gemini
+    gemini_api_key: str = Field(default="", alias="GEMINI_API_KEY")
+    gemini_model: str = Field(default="gemini-2.0-flash", alias="GEMINI_MODEL")
 
     # Serper（Google検索API）
     serper_api_key: str = Field(default="", alias="SERPER_API_KEY")

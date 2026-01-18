@@ -49,8 +49,8 @@ def validate_settings() -> bool:
     """設定の検証"""
     errors = []
 
-    if not settings.openai_api_key:
-        errors.append("OPENAI_API_KEY が設定されていません")
+    if not settings.gemini_api_key:
+        errors.append("GEMINI_API_KEY が設定されていません")
 
     if not settings.serper_api_key:
         errors.append("SERPER_API_KEY が設定されていません")
